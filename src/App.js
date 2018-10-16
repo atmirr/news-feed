@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {Header} from "./components/ui/Header";
+import Header from "./components/ui/Header";
 import AllPosts from "./components/container/AllPostsContainer";
-import {loadNewsData} from "./actions";
+import {loadNewsData, loadSearchResult} from "./actions";
 import {withStyles} from "@material-ui/core/styles/index";
+import {connect} from 'react-redux'
 
 const styles = theme => ({
     layout: {
@@ -24,15 +25,19 @@ class App extends Component {
     }
 
     render() {
-        const {classes} = this.props
+        const {classes, searchQuery} = this.props
 
         return (
             <div className={classes.layout}>
-                <Header />
+                <Header searchQuery={searchQuery} />
                 <AllPosts />
             </div>
         )
     }
 }
 
-export default withStyles(styles)(App)
+const mapDispatchToProps = dispatch => ({
+    searchQuery: query => loadSearchResult(query)(dispatch)
+})
+
+export default connect(null, mapDispatchToProps)( withStyles(styles)(App) )

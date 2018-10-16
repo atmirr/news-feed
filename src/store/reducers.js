@@ -16,8 +16,8 @@ const allPosts = (state=[], action) => {
                 }
             ]
 
-        case C.REMOVE_POST:
-            return state.filter(item => item.id !== action.payload.id)
+        case C.CLEAR_POSTS:
+            return []
 
         default:
             return state
